@@ -72,8 +72,11 @@ fn show_strands(strands: &Vec<Vec<Strand>>, height: u16) {
             let start : i32 = max(0,             strand.end_index - strand.length);
             let end   : i32 = min(height as i32, strand.end_index);
 
+            let c_start = max(0, strand.length - strand.end_index);
+            let c_end   = min(strand.length, strand.length - (strand.end_index - height as i32));
+
             display[lane] = blank_string(start);
-            display[lane].push_str(&strand.contents);
+            display[lane].push_str(&strand.contents[c_start as usize..c_end as usize]);
             display[lane].push_str(&blank_string(height as i32 - end));
         }
     }
